@@ -1,0 +1,5 @@
+.gitignore
+.DS_store
+flights_10k.csv
+fuel_comsumption_10k.csv
+passengers_10k.csv
