@@ -29,6 +29,9 @@ def load_data_set(path= './data', file= 'flights.csv', test=False):
         return X
     else:
     # Take target variable out of flights data set
+        # Remove rows where Target variable is null
+        X = X[X['arr_delay'].notna()]
+        
         y = X['arr_delay']
         X = X.drop('arr_delay', axis=1)
         return X, y
