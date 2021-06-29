@@ -306,10 +306,11 @@ def ensemble_feature_importance(model, X):
     feature_imp = pd.Series(model.feature_importances_,index=X.columns).sort_values(ascending=False)
     feature_imp = feature_imp[feature_imp > 0.01]
     
+    plt.rcParams['figure.figsize'] = 20, 25
     # Creating a bar plot
     sns.barplot(x=feature_imp, y=feature_imp.index)
+    
     # Add labels to your graph
-    plt.rcParams['figure.figsize'] = [8, 10]
     plt.xlabel('Feature Importance Score')
     plt.ylabel('Features')
     plt.title("Visualizing Important Features")
