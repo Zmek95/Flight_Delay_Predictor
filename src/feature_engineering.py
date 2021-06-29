@@ -1,7 +1,23 @@
+'''
+Feature engineering functions
+'''    
 
-def one_hot_encode(X):
+import pandas as pd  
+import numpy as np
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.compose import ColumnTransformer, make_column_selector 
+
+
+
+def scale_data(X):
+    scaler = StandardScaler()
+    X_scaled = pd.DataFrame(scaler.fit_transform(X), columns=list(X.columns))
+    return scaler, X_scaled
+
+def scale_encoder(X):
     '''
-    Hote encode categorical variables.
+    Feature scales all numerical features using StandardScaler()
+    One-hot encodes all categorical features using OneHotEncoder()
 
     Parameters
     ----------
@@ -10,16 +26,30 @@ def one_hot_encode(X):
 
     Returns
     -------
-    df_dummy : pandas DataFrame
-        Pandas DataFrame with numerical variables (0 or 1). 
+    processed_df : pandas DataFrame
+        Pandas DataFrame with numerical features scaled and
+        categorical features encoded.
+        
+    ct : ColumnTransformer object,
+        This can be used to transform one hot encoded features
+        back to the orginal format.
+        
+    scaler : StandardScaler object,
+        This can be used to transform scaled features
+        back to the orginal format.
     '''
-    cat_feats = train.dtypes[X.dtypes == 'object'].index.tolist()
-    df_dummy = pd.get_dummies(X[cat_feats])
-    return df_dummy
+    
+    ct = ColumnTransformer(transformers=[('scaler', OneHotEncoder(), make_column_selector(dtype_include=object))])
+    encoded_features = np.array(ct.fit_transform(X))
+    encoded_df = pd.DataFrame(encoded_features, columns=ct.get_feature_names())
+    
+    X_numeric = X.select_dtypes(exclude=object)
+    scaler, X_numeric = scale_data(X_numeric)
+    
+    processed_df = pd.concat([X_numeric, encoded_df], axis=1)
+    
+    return processed_df, ct, scaler
 
-def date_numeric(s):
-    s = s.replace('-', '', regex=True).astype(int)
-    return s
 
 def print_cat_describe(df):
     for col in train.dtypes[train.dtypes == 'object'].index:
@@ -27,8 +57,3 @@ def print_cat_describe(df):
         print(df[col].describe())
         print("Unique values: ", df[col].unique())
         print('')
-    
-def scale_data(X):
-    scaler = StandardScaler()
-    X_scaled = pd.DataFrame(scaler.fit_transform(X.astype(float)))
-    return X_scaled
