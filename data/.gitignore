@@ -3,3 +3,12 @@
 flights_10k.csv
 fuel_comsumption_10k.csv
 passengers_10k.csv
+flight_airport_traffic.csv
+flight_delay_aggregate_arrive_hour.csv
+flight_delay_aggregate_day_of_week.csv
+flight_delay_aggregate_monthly.csv
+flights.csv
+fuel_comsumption_monthyl_aggregate.csv
+passengers_airport_monthly_aggregate.csv
+passengers_carrier_monthly_aggregate.csv
+passengers_flight_montly_aggregate.csv
