@@ -1,4 +1,4 @@
-.gitignore
+.ipynb_checkpoints
 .DS_store
 flights_10k.csv
 fuel_comsumption_10k.csv
