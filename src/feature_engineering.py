@@ -27,3 +27,8 @@ def print_cat_describe(df):
         print(df[col].describe())
         print("Unique values: ", df[col].unique())
         print('')
+    
+def scale_data(X):
+    scaler = StandardScaler()
+    X_scaled = pd.DataFrame(scaler.fit_transform(X.astype(float)))
+    return X_scaled
