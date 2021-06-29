@@ -1,2 +1,1 @@
-SELECT * FROM weather
-LIMIT 50;
+SELECT * FROM weather;
