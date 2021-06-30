@@ -24,7 +24,7 @@ def load_data_set(path= './data', file= 'flights.csv', test=False):
         If test = False it returns a target variable in pandas Series.
     '''
     # Load Train or Test csv
-    X = pd.read_csv(f'{path}/{file}')
+    X = pd.read_csv(f'{path}/{file}', low_memory=False)
     if test:
         return X
     else:
@@ -33,7 +33,7 @@ def load_data_set(path= './data', file= 'flights.csv', test=False):
         X = X[X['arr_delay'].notna()]
         
         y = X['arr_delay']
-        X = X.drop('arr_delay', axis=1)
+        X = X.drop(['arr_delay'], axis=1)
         return X, y
  
 
@@ -61,17 +61,17 @@ def load_agg_data(X, path= './data', test=False):
     '''
 
     # Load flights aggregate data
-    flight_delay_aggregate_mth = pd.read_csv('./data/flight_delay_aggregate_monthly.csv')
-    flight_delay_aggregate_dow = pd.read_csv('./data/flight_delay_aggregate_day_of_week.csv')
-    flight_delay_aggregate_arrive_hour= pd.read_csv('./data/flight_delay_aggregate_arrive_hour.csv')
-    flight_airport_traffic = pd.read_csv('./data/flight_airport_traffic.csv')
+    flight_delay_aggregate_mth = pd.read_csv(f'{path}/flight_delay_aggregate_monthly.csv')
+    flight_delay_aggregate_dow = pd.read_csv(f'{path}/flight_delay_aggregate_day_of_week.csv')
+    flight_delay_aggregate_arrive_hour= pd.read_csv(f'{path}/flight_delay_aggregate_arrive_hour.csv')
+    flight_airport_traffic = pd.read_csv(f'{path}/flight_airport_traffic.csv')
 
     # Load passengers aggregate data
-    passengers_flight_montly_aggregate = pd.read_csv('./data/passengers_flight_montly_aggregate.csv')
-    passengers_carrier_monthly_aggregate = pd.read_csv('./data/passengers_carrier_monthly_aggregate.csv')
-    passengers_airport_monthly_aggregate= pd.read_csv('./data/passengers_airport_monthly_aggregate.csv')
+    passengers_flight_montly_aggregate = pd.read_csv(f'{path}/passengers_flight_montly_aggregate.csv')
+    passengers_carrier_monthly_aggregate = pd.read_csv(f'{path}/passengers_carrier_monthly_aggregate.csv')
+    passengers_airport_monthly_aggregate= pd.read_csv(f'{path}/passengers_airport_monthly_aggregate.csv')
     # Load fuel comsumption data
-    fuel_comsumption_monthyl_aggregate= pd.read_csv('./data/fuel_comsumption_monthyl_aggregate.csv')
+    fuel_comsumption_monthyl_aggregate= pd.read_csv(f'{path}/fuel_comsumption_monthyl_aggregate.csv')
 
     # join tables data from origin
     flights = pd.merge(X, flight_delay_aggregate_mth, how='left', on=['mkt_unique_carrier', 'origin_airport_id', 'dest_airport_id',  'month'])
