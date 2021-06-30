@@ -14,7 +14,7 @@ def scale_data(X):
     X_scaled = pd.DataFrame(scaler.fit_transform(X), columns=list(X.columns))
     return scaler, X_scaled
 
-def scale_encoder(X):
+def scale_encoder(X, drop_first=True):
     '''
     Feature scales all numerical features using StandardScaler()
     One-hot encodes all categorical features using OneHotEncoder()
@@ -23,6 +23,10 @@ def scale_encoder(X):
     ----------
     X : pandas DataFrame.
         Train or test data with categorical variables
+        
+    drop_first: boolean, default=True
+        returns P-1 columns for P columns, this is needed for some 
+        regression models to avoid multicollinearity.
 
     Returns
     -------
@@ -41,7 +45,7 @@ def scale_encoder(X):
     
     cat = X.select_dtypes(include=object)
     names = list(cat.columns)
-    encoded_df = pd.get_dummies(cat, prefix=names)
+    encoded_df = pd.get_dummies(cat, prefix=names, drop_first=drop_first)
     
     X_numeric = X.select_dtypes(exclude=object)
     scaler, X_numeric = scale_data(X_numeric)
