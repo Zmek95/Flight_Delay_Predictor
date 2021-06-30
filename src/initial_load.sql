@@ -3,8 +3,8 @@
 -- Flights
 -- Extract data before feture engineering
 
--- Flights Train data set
-\copy (SELECT fl_date, mkt_unique_carrier, branded_code_share, mkt_carrier, mkt_carrier_fl_num, op_unique_carrier, tail_num, op_carrier_fl_num, origin_airport_id, origin, origin_city_name, dest_airport_id, dest, dest_city_name, crs_dep_time, crs_arr_time, dup, crs_elapsed_time, flights, distance, date_part('year', TO_DATE(fl_date,'YYYY-MM-DD')) as year, date_part('month', TO_DATE(fl_date,'YYYY-MM-DD')) as month, date_part('day', TO_DATE(fl_date,'YYYY-MM-DD')) as day, date_part('dow', TO_DATE(fl_date,'YYYY-MM-DD')) as day_of_week, date_part('week', TO_DATE(fl_date,'YYYY-MM-DD')) as week_of_year, crs_dep_time / 100 as crs_dep_hour, crs_arr_time / 100 as crs_arr_hour, arr_delay FROM flights TABLESAMPLE BERNOULLI (.06153) REPEATABLE (1)) To '../data/flights.csv' With CSV HEADER
+-- Flights Train data set 10000 - .06153
+\copy (SELECT fl_date, mkt_unique_carrier, branded_code_share, mkt_carrier, mkt_carrier_fl_num, op_unique_carrier, tail_num, op_carrier_fl_num, origin_airport_id, origin, origin_city_name, dest_airport_id, dest, dest_city_name, crs_dep_time, crs_arr_time, dup, crs_elapsed_time, flights, distance, date_part('year', TO_DATE(fl_date,'YYYY-MM-DD')) as year, date_part('month', TO_DATE(fl_date,'YYYY-MM-DD')) as month, date_part('day', TO_DATE(fl_date,'YYYY-MM-DD')) as day, date_part('dow', TO_DATE(fl_date,'YYYY-MM-DD')) as day_of_week, date_part('week', TO_DATE(fl_date,'YYYY-MM-DD')) as week_of_year, crs_dep_time / 100 as crs_dep_hour, crs_arr_time / 100 as crs_arr_hour, arr_delay FROM flights TABLESAMPLE BERNOULLI (3.5) REPEATABLE (1)) To '../data/flights.csv' With CSV HEADER
 
 -- Flights aggregated variables
 ----- variables we will not have in test
