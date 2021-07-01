@@ -122,3 +122,34 @@ def num_null_replacement(df):
     print_null_features(df)
     
     return df
+
+
+def get_ord_digit(x):
+    '''
+    Replaces alpha numeric with numeric values. Returns ascii value for letters and keeps digits 
+    Used to replace tail_num
+    Parameters
+    ----------
+    x : pandas Series
+        Test or Train dataset.
+           
+    Returns
+    -------
+    X : pandas Series with numeric values
+        Pandas DataFrame containing Train or Test data and additional features. 
+
+    '''
+
+    new = []
+    
+    for l in x:
+        if l.isdigit():
+            new.append(l)
+        else:
+            new.append(ord(l))
+
+    tail_num_n = ''
+    for l in new:
+        tail_num_n += str(l)
+        
+    return int(tail_num_n)
