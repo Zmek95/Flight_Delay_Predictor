@@ -4,7 +4,7 @@ Feature engineering functions
 
 import pandas as pd  
 import numpy as np
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.preprocessing import StandardScaler, OneHotEncoder, RobustScaler
 from sklearn.compose import ColumnTransformer, make_column_selector, make_column_transformer
 
 
