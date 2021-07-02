@@ -6,12 +6,17 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler, OneHotEncoder, RobustScaler
 from sklearn.compose import ColumnTransformer, make_column_selector, make_column_transformer
+from sklearn.model_selection import train_test_split
 
 
-
-def scale_data(X):
+def scale_data(X, as_frame=True):
     scaler = StandardScaler()
-    X_scaled = pd.DataFrame(scaler.fit_transform(X), columns=list(X.columns))
+    
+    if as_frame:
+        X_scaled = pd.DataFrame(scaler.fit_transform(X), columns=list(X.columns))
+    else:
+        X_scaled = scaler.fit_transform(X)
+        
     return scaler, X_scaled
 
 def scale_encoder(X, drop_first=True):
@@ -39,6 +44,7 @@ def scale_encoder(X, drop_first=True):
         back to the orginal format.
     '''
     
+   
     #ct = make_column_transformer((OneHotEncoder(), make_column_selector(dtype_include=object)))
     #encoded_features = np.array(ct.fit_transform(X))
     #encoded_df = pd.DataFrame(encoded_features, columns=ct.get_feature_names())
@@ -53,6 +59,18 @@ def scale_encoder(X, drop_first=True):
     processed_df = pd.concat([X_numeric, encoded_df], axis=1)
     
     return processed_df, scaler
+
+def encoder(X, drop_first=True):
+    
+    cat = X.select_dtypes(include=object)
+    names = list(cat.columns)
+    encoded_df = pd.get_dummies(cat, prefix=names, drop_first=drop_first)
+    
+    X_numeric = X.select_dtypes(exclude=object)
+    
+    processed_df = pd.concat([X_numeric, encoded_df], axis=1)
+    
+    return processed_df
 
 
 def print_cat_describe(df):
