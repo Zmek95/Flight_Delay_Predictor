@@ -4,7 +4,7 @@ This repository cointains Machine learning models to predict flight delays in th
 ## Files
 
 
-- The **[submission.csv]**(https://github.com/Zmek95/Flight_Delay_Predictor/tree/master/data/Submission) file contains predictions of arrival delays for flights in the United States from January 1, 2020, to January 7, 2020. is contained in.
+- The [submission.csv](https://github.com/Zmek95/Flight_Delay_Predictor/tree/master/data/Submission) file contains predictions of arrival delays for flights in the United States from January 1, 2020, to January 7, 2020. is contained in.
 
 - The notebooks contained at the root of the project directory contain all notebooks used in the project. These notebooks mostly contain Exploratory Data analysis, Feature engineering, and model training.
 - The **output** folder contains several different saved machine learning models, use pickle to load them.
